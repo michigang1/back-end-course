@@ -5,7 +5,7 @@ WORKDIR /app
 RUN gradle build
 
 FROM openjdk:17-slim
-EXPOSE 8080:8080
+EXPOSE ${PORT}:8080
 RUN mkdir /server
 COPY --from=build /app/build/libs/back-end-course-0.0.1-SNAPSHOT.jar /server/back-end-course-0.0.1-SNAPSHOT.jar
 CMD ["java", "-XX:+UnlockExperimentalVMOptions", "-Djava.security.egd=file:/dev/./urandom", "-jar", "/server/back-end-course-0.0.1-SNAPSHOT.jar"]
