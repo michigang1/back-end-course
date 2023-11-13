@@ -1,9 +1,9 @@
 package com.michigang1.backendcourse.models
 
-import java.time.LocalDateTime
+import java.time.LocalDate
 import java.util.*
 
 data class DateResponse(
-    val date: LocalDateTime = LocalDateTime.now(),
+    val date: LocalDate = LocalDate.now(),
     val status: Int
 )
