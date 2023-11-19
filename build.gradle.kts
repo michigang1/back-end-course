@@ -20,24 +20,28 @@ repositories {
 }
 
 dependencies {
+    val coroutinesVersion = "1.5.2"
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor:$coroutinesVersion")
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     developmentOnly("org.springframework.boot:spring-boot-devtools")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
-}
+    implementation("org.reactivestreams:reactive-streams:1.0.0")
 
-tasks.withType<KotlinCompile> {
-    kotlinOptions {
-        freeCompilerArgs += "-Xjsr305=strict"
-        jvmTarget = "17"
+    tasks.withType<KotlinCompile> {
+        kotlinOptions {
+            freeCompilerArgs += "-Xjsr305=strict"
+            jvmTarget = "17"
+        }
     }
-}
 
-tasks.withType<Test> {
-    useJUnitPlatform()
-}
+    tasks.withType<Test> {
+        useJUnitPlatform()
+    }
 
-tasks.bootBuildImage {
-    builder.set("paketobuildpacks/builder-jammy-base:latest")
+    tasks.bootBuildImage {
+        builder.set("paketobuildpacks/builder-jammy-base:latest")
+    }
 }
