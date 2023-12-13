@@ -2,6 +2,7 @@ package com.michigang1.backendcourse.controller.category
 
 import com.michigang1.backendcourse.models.Category
 import org.springframework.http.ResponseEntity
+import org.springframework.stereotype.Service
 
 interface CategoryController {
     suspend fun getAllCategories(): ResponseEntity<List<Category>>

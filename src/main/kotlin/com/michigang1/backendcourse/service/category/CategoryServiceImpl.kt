@@ -3,6 +3,7 @@ package com.michigang1.backendcourse.service.category
 import com.michigang1.backendcourse.models.Category
 import com.michigang1.backendcourse.repository.category.CategoryRepository
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.stereotype.Component
 import org.springframework.stereotype.Service
 
 @Service

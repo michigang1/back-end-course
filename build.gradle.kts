@@ -17,6 +17,7 @@ java {
 
 repositories {
     mavenCentral()
+    jcenter()
 }
 
 dependencies {
@@ -27,7 +28,14 @@ dependencies {
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     developmentOnly("org.springframework.boot:spring-boot-devtools")
+    testImplementation("org.mockito:mockito-core:3.12.4")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.7.2")
+    testImplementation("org.junit.jupiter:junit-jupiter:5.8.2")
+    testImplementation("org.junit.jupiter:junit-jupiter-engine:5.7.2")
+    testImplementation("org.junit.vintage:junit-vintage-engine:5.7.2")
+    testImplementation("org.junit.platform:junit-platform-launcher:1.9.1")
+
     implementation("org.reactivestreams:reactive-streams:1.0.0")
 
     tasks.withType<KotlinCompile> {
@@ -38,7 +46,12 @@ dependencies {
     }
 
     tasks.withType<Test> {
-        useJUnitPlatform()
+        useJUnit()
+        testLogging {
+            showExceptions = true
+            showStandardStreams = true
+            exceptionFormat = org.gradle.api.tasks.testing.logging.TestExceptionFormat.FULL
+        }
     }
 
     tasks.bootBuildImage {

@@ -2,11 +2,13 @@ package com.michigang1.backendcourse.repository.category
 
 import com.michigang1.backendcourse.models.Category
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.stereotype.Repository
 
 @Repository
 class CategoryRepositoryImpl : CategoryRepository {
     @Autowired
+    @Qualifier("initializeCategories")
     private val categoriesStub = mutableListOf<Category>()
     override suspend fun getAllCategories(): List<Category> {
         return categoriesStub
