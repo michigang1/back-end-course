@@ -1,5 +1,7 @@
 package com.michigang1.backendcourse.repository.user
 
+import com.michigang1.backendcourse.exception.NoOneOfTwoParamsProvidedException
+import com.michigang1.backendcourse.exception.ResourceByParamNotFound
 import com.michigang1.backendcourse.models.User
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Qualifier
@@ -24,8 +26,13 @@ class UserRepositoryImpl : UserRepository {
     }
 
     override fun deleteUserById(id: Int): Boolean {
-        val user = userStub.find { it.id == id } ?: return false
-        userStub.remove(user)
-        return true
+        val category = userStub.find { it.id == id }
+        if (category == null) throw ResourceByParamNotFound()
+        else {
+            userStub.removeAt(id)
+            val isDeleted = userStub.none { it.id == id }
+
+            return isDeleted
+        }
     }
 }

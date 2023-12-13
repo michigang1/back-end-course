@@ -1,6 +1,7 @@
 package com.michigang1.backendcourse.controller.error
 
 import com.michigang1.backendcourse.exception.NoOneOfTwoParamsProvidedException
+import com.michigang1.backendcourse.exception.ResourceByParamNotFound
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -30,5 +31,9 @@ class ErrorController: ResponseEntityExceptionHandler() {
     @ExceptionHandler(value = [NoOneOfTwoParamsProvidedException::class])
     fun handleNoOneOfTwoParamsProvidedException(ex: RuntimeException, request: WebRequest): ResponseEntity<Any>? {
         return prepareResponse(ex, request, "You should provide valid one of two params: userId or categoryId", HttpStatus.METHOD_NOT_ALLOWED)
+    }
+    @ExceptionHandler(value = [ResourceByParamNotFound::class])
+    fun handleResourceByParamNotFound(ex: RuntimeException, request: WebRequest): ResponseEntity<Any>? {
+        return prepareResponse(ex, request, "Resource by param not found", HttpStatus.NOT_FOUND)
     }
 }

@@ -1,6 +1,7 @@
 package com.michigang1.backendcourse.controller.category
 
 import com.michigang1.backendcourse.models.Category
+import com.michigang1.backendcourse.models.DeleteEntityResponse
 import com.michigang1.backendcourse.service.category.CategoryService
 import com.michigang1.backendcourse.service.category.CategoryServiceImpl
 import org.springframework.beans.factory.annotation.Autowired
@@ -26,8 +27,8 @@ class CategoryControllerImpl(@Autowired private val service: CategoryService) : 
     }
 
     @DeleteMapping(produces = [ APPLICATION_JSON_VALUE])
-    override suspend fun deleteCategoryById(@RequestParam("id")id: Int): ResponseEntity<Boolean> {
-        val result = service.deleteCategoryById(id)
+    override suspend fun deleteCategoryById(@RequestParam("id")id: Int): ResponseEntity<DeleteEntityResponse> {
+        val result = DeleteEntityResponse(service.deleteCategoryById(id))
         return ResponseEntity.ok(result)
     }
 }

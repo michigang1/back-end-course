@@ -1,5 +1,7 @@
 package com.michigang1.backendcourse.repository.record
 
+import com.michigang1.backendcourse.exception.NoOneOfTwoParamsProvidedException
+import com.michigang1.backendcourse.exception.ResourceByParamNotFound
 import com.michigang1.backendcourse.models.Record
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Qualifier
@@ -23,8 +25,13 @@ class RecordRepositoryImpl : RecordRepository {
     }
 
     override suspend fun deleteRecordById(id: Int): Boolean {
-        val record = recordStub.find { it.id == id } ?: return false
-        recordStub.remove(record)
-        return true
+        val record = recordStub.find { it.id == id }
+        if (record == null) throw ResourceByParamNotFound()
+        else {
+            recordStub.removeAt(id)
+            val isDeleted = recordStub.none { it.id == id }
+
+            return isDeleted
+        }
     }
 }

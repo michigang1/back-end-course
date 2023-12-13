@@ -1,5 +1,7 @@
 package com.michigang1.backendcourse.repository.category
 
+import com.michigang1.backendcourse.exception.NoOneOfTwoParamsProvidedException
+import com.michigang1.backendcourse.exception.ResourceByParamNotFound
 import com.michigang1.backendcourse.models.Category
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Qualifier
@@ -20,8 +22,13 @@ class CategoryRepositoryImpl : CategoryRepository {
     }
 
     override suspend fun deleteCategoryById(id: Int): Boolean {
-        val category = categoriesStub.find { it.id == id } ?: return false
-        categoriesStub.remove(category)
-        return true
+        val category = categoriesStub.find { it.id == id }
+        if (category == null) throw ResourceByParamNotFound()
+        else {
+            categoriesStub.removeAt(id)
+            val isDeleted = categoriesStub.none { it.id == id }
+
+            return isDeleted
+        }
     }
 }
