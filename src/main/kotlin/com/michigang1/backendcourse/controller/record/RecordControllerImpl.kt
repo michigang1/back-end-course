@@ -1,6 +1,7 @@
 package com.michigang1.backendcourse.controller.record
 
 import com.michigang1.backendcourse.exception.NoOneOfTwoParamsProvidedException
+import com.michigang1.backendcourse.models.DeleteEntityResponse
 import com.michigang1.backendcourse.models.Record
 import com.michigang1.backendcourse.service.record.RecordService
 import org.springframework.beans.factory.annotation.Autowired
@@ -27,14 +28,14 @@ class RecordControllerImpl(@Autowired private val service: RecordService) : Reco
     }
 
     @PostMapping(produces = [ APPLICATION_JSON_VALUE], consumes = [ APPLICATION_JSON_VALUE])
-    override suspend fun addRecord(record: Record): ResponseEntity<Record> {
+    override suspend fun addRecord(@RequestBody record: Record): ResponseEntity<Record> {
         val newRecord = service.addRecord(record)
         return ResponseEntity.ok(newRecord)
     }
 
     @DeleteMapping(value = ["/{id}"], produces = [ APPLICATION_JSON_VALUE])
-    override suspend fun deleteRecordById(@PathVariable("id")id: Int): ResponseEntity<Boolean> {
-        val result = service.deleteRecordById(id)
+    override suspend fun deleteRecordById(@PathVariable("id")id: Int): ResponseEntity<DeleteEntityResponse> {
+        val result = DeleteEntityResponse(service.deleteRecordById(id))
         return ResponseEntity.ok(result)
     }
 }

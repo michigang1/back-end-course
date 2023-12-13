@@ -18,29 +18,29 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc
 class BackEndCourseApplication {
 
     @Bean
-    fun initializeCategories() = listOf(
-        Category(1, "Food"),
-        Category(2, "Transportation"),
-        Category(3, "Entertainment"),
-        Category(4, "Education"),
-        Category(5, "Health"),
-    )
+    suspend fun initializeCategories(@Autowired repository: CategoryRepository) = listOf(
+        Category(name = "Food"),
+        Category(name = "Transport"),
+        Category(name = "Clothes"),
+        Category(name = "Entertainment"),
+        Category(name = "Other"),
+    ).forEach { repository.addCategory(it) }
 
 
     @Bean
-    fun initializeRecords() = listOf(
-        Record(1,1,1, generalExpenses = 100.0),
-        Record(2,1,2, generalExpenses = 200.0),
-        Record(3,1,3, generalExpenses = 300.0),
-        Record(4,1,4, generalExpenses = 400.0),
-        Record(5,1,5, generalExpenses = 500.0),
-    )
+    suspend fun initializeRecords(@Autowired repository: RecordRepository) = listOf(
+        Record(userId = 0, categoryId = 1, generalExpenses = 100.0),
+        Record(userId = 0, categoryId = 2, generalExpenses = 200.0),
+        Record(userId = 1, categoryId = 3, generalExpenses = 300.0),
+        Record(userId = 1, categoryId = 4, generalExpenses = 400.0),
+        Record(userId = 1, categoryId = 5, generalExpenses = 500.0),
+    ).forEach { repository.addRecord(it) }
 
     @Bean
-    fun initializeUsers() = listOf(
-        User(1, "admin"),
-        User(2, "user"),
-    )
+   suspend fun initializeUsers(@Autowired repository: UserRepository) = listOf(
+        User(name = "admin"),
+        User(name = "user"),
+    ).forEach { repository.addUser(it) }
 
 }
 

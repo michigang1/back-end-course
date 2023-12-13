@@ -21,7 +21,7 @@ class CategoryControllerImpl(@Autowired private val service: CategoryService) : 
     }
 
     @PostMapping(produces = [ APPLICATION_JSON_VALUE], consumes = [ APPLICATION_JSON_VALUE])
-    override suspend fun addCategory(category: Category): ResponseEntity<Category> {
+    override suspend fun addCategory(@RequestBody category: Category): ResponseEntity<Category> {
         val newCategory = service.addCategory(category)
         return ResponseEntity.ok(newCategory)
     }

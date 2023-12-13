@@ -1,19 +1,15 @@
 package com.michigang1.backendcourse.repository.user
 
-import com.michigang1.backendcourse.exception.NoOneOfTwoParamsProvidedException
 import com.michigang1.backendcourse.exception.ResourceByParamNotFound
 import com.michigang1.backendcourse.models.User
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.stereotype.Repository
+import org.springframework.web.bind.annotation.RequestBody
 
 @Repository
 class UserRepositoryImpl : UserRepository {
-    @Autowired
-    @Qualifier("initializeUsers")
     private val userStub = mutableListOf<User>()
     override fun getUserById(id: Int): User? {
-        return userStub[id]
+        return userStub.find { it.id == id }
     }
 
     override fun getAllUsers(): List<User> {
@@ -21,15 +17,16 @@ class UserRepositoryImpl : UserRepository {
     }
 
     override fun addUser(user: User): User {
+        user.id = userStub.count()
         userStub.add(user)
         return userStub.last()
     }
 
-    override fun deleteUserById(id: Int): Boolean {
-        val category = userStub.find { it.id == id }
-        if (category == null) throw ResourceByParamNotFound()
+    override fun deleteUserById(@RequestBody id: Int): Boolean {
+        val user = userStub.find { it.id == id }
+        if (user == null) throw ResourceByParamNotFound()
         else {
-            userStub.removeAt(id)
+            userStub.removeAt(userStub.indexOf(user))
             val isDeleted = userStub.none { it.id == id }
 
             return isDeleted

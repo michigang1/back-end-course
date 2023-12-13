@@ -9,17 +9,16 @@ import org.springframework.stereotype.Repository
 
 @Repository
 class RecordRepositoryImpl : RecordRepository {
-    @Autowired
-    @Qualifier("initializeRecords")
     private val recordStub = mutableListOf<Record>()
     override suspend fun getRecordById(id: Int): Record? {
-        return recordStub[id]
+        return recordStub.find { it.id == id }
     }
 
     override suspend fun getAllRecords(): List<Record> {
         return recordStub
     }
     override suspend fun addRecord(record: Record): Record {
+        record.id = recordStub.count()
         recordStub.add(record)
         return recordStub.last()
     }
@@ -28,7 +27,7 @@ class RecordRepositoryImpl : RecordRepository {
         val record = recordStub.find { it.id == id }
         if (record == null) throw ResourceByParamNotFound()
         else {
-            recordStub.removeAt(id)
+            recordStub.removeAt(recordStub.indexOf(record))
             val isDeleted = recordStub.none { it.id == id }
 
             return isDeleted

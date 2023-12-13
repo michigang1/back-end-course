@@ -6,7 +6,7 @@ import java.time.format.DateTimeFormatter
 import java.util.*
 
 data class Record(
-    val id: Int = 0,
+    var id: Int = 0,
     val userId: Int = 0,
     val categoryId: Int = 0,
     val dateTimeAtCreation: String? =  LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")),
