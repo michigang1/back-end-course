@@ -18,11 +18,11 @@ class RecordRepositoryImpl : RecordRepository {
         return recordStub
     }
     override suspend fun addRecord(record: Record): Record {
-        val existingRecord = recordStub.find { it.id == record.id }
-        if (existingRecord != null) {
-            return existingRecord
-        }
         record.id = recordStub.count()
+        val existingRecord = recordStub.find { it.id == record.id }
+         if (existingRecord != null) {
+           return existingRecord
+        }
         recordStub.add(record)
         return recordStub.last()
     }
