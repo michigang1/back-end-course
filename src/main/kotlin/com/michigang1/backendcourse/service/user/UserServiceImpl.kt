@@ -16,6 +16,9 @@ class UserServiceImpl(@Autowired private val repository: UserRepository) : UserS
     }
 
     override suspend fun addUser(user: User): User {
+        if (getAllUsers().contains(user)) {
+            throw Exception("User already exists")
+        }
         return repository.addUser(user)
     }
 

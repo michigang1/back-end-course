@@ -16,6 +16,10 @@ class CategoryRepositoryImpl : CategoryRepository {
     }
 
     override suspend fun addCategory(category: Category): Category {
+        val existingCategory = categoriesStub.find { it.name == category.name }
+        if (existingCategory != null) {
+            return existingCategory
+        }
         category.id = categoriesStub.count()
         categoriesStub.add(category)
         return categoriesStub.last()
