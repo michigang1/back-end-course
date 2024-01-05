@@ -17,9 +17,8 @@ class UserRepositoryImpl : UserRepository {
     }
 
     override fun addUser(user: User): User {
-        val existingUser = userStub.find { it.id == user.id }
-        if (existingUser != null) {
-            return existingUser
+        if (userStub.filter { it.name == user.name }.isNotEmpty()) {
+            return userStub.filter { it.name == user.name }.first()
         }
         user.id = userStub.count()
         userStub.add(user)

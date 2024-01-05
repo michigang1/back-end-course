@@ -12,3 +12,4 @@ data class Record(
     val dateTimeAtCreation: String? =  LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")),
     val generalExpenses: Double = 0.0,
 )
+//f
