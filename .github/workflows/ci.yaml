@@ -29,10 +29,15 @@ jobs:
           path: build/libs
 
       - name: Build and Deploy services to Docker Compose
-        uses: isbang/compose-action@v1.5.1
+        uses: docker/build-push-action@v2
         with:
-          compose-file: "./docker-compose.yaml"
-          up-flags: "--build"
-          services: |
-            web
-            db
+            script: |
+              docker-compose -f ./docker-compose.yaml up --build
+
+      - name: Run Docker Compose
+        uses: docker/build-push-action@v2
+        with:
+            script: |
+              docker-compose -f ./docker-compose.yaml down
+              docker-compose -f ./docker-compose.yaml up
+              docker-compose -f ./docker-compose.yaml logs
