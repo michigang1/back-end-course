@@ -5,7 +5,6 @@ import com.michigang1.backendcourse.models.User
 import org.springframework.stereotype.Repository
 import org.springframework.web.bind.annotation.RequestBody
 
-@Repository
 class UserRepositoryImpl : UserRepository {
     private val userStub = mutableListOf<User>()
     override fun getUserById(id: Int): User? {

@@ -1,5 +1,6 @@
 package com.michigang1.backendcourse
 
+import com.michigang1.backendcourse.entity.UserEntityRepository
 import com.michigang1.backendcourse.models.Category
 import com.michigang1.backendcourse.models.Record
 import com.michigang1.backendcourse.models.User
@@ -29,18 +30,12 @@ class BackEndCourseApplication {
 
     @Bean
     suspend fun initializeRecords(@Autowired repository: RecordRepository) = listOf(
-        Record(userId = 0, categoryId = 1, generalExpenses = 100.0),
+        Record(userId =  0, categoryId = 1, generalExpenses = 100.0),
         Record(userId = 0, categoryId = 2, generalExpenses = 200.0),
         Record(userId = 1, categoryId = 3, generalExpenses = 300.0),
         Record(userId = 1, categoryId = 4, generalExpenses = 400.0),
         Record(userId = 1, categoryId = 5, generalExpenses = 500.0),
     ).forEach { repository.addRecord(it) }
-
-    @Bean
-   suspend fun initializeUsers(@Autowired repository: UserRepository) = listOf(
-        User(name = "admin"),
-        User(name = "user"),
-    ).forEach { repository.addUser(it) }
 
 }
 

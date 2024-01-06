@@ -35,7 +35,9 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter-engine:5.7.2")
     testImplementation("org.junit.vintage:junit-vintage-engine:5.7.2")
     testImplementation("org.junit.platform:junit-platform-launcher:1.9.1")
-
+    runtimeOnly("mysql:mysql-connector-java:8.0.32")
+    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+    runtimeOnly("org.springframework.boot:spring-boot-devtools")
     implementation("org.reactivestreams:reactive-streams:1.0.0")
 
     tasks.withType<KotlinCompile> {
