@@ -27,10 +27,9 @@ jobs:
         with:
           name: Package
           path: build/libs
-      - uses: actions/checkout@v3
-      - name: Setup Docker Compose
-        run: brew install docker-compose
-      - name: Build and Deploy services to Docker Compose
-        run: docker-compose up --build
-      - name: Run Docker Compose
-        run: docker-compose up
+        name: Build Docker Compose services
+      - uses: actions/setup-go@v2
+        with:
+          go-version: '1.20'
+        run: |
+          docker-compose -f docker-compose.yaml up --build
