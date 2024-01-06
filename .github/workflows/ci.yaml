@@ -27,3 +27,9 @@ jobs:
         with:
           name: Package
           path: build/libs
+
+      - name: Build Docker Compose
+        run: docker-compose up --build
+
+      - name: Run Docker Compose
+        run: docker-compose up
