@@ -32,12 +32,12 @@ jobs:
         uses: docker/build-push-action@v2
         with:
             script: |
-             sudo docker-compose -f ./docker-compose.yaml up --build
+             sudo docker-compose -f $PATH up --build
 
       - name: Run Docker Compose
         uses: docker/build-push-action@v2
         with:
             script: |
-             sudo docker-compose -f ./docker-compose.yaml down
-             sudo docker-compose -f ./docker-compose.yaml up
-             sudo docker-compose -f ./docker-compose.yaml logs
+             sudo docker-compose -f $PATH down
+             sudo docker-compose -f $PATH up
+             sudo docker-compose -f $PATH logs
