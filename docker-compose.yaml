@@ -19,7 +19,12 @@ services:
     volumes:
       - mysql_volume:/var/lib/mysql
     env_file: .env
-
+    environment:
+      MYSQL_ROOT_PASSWORD: michigang1
+      MYSQL_DATABASE: database
+      MYSQL_USER: michigang1
+      MYSQL_PASSWORD: michigang1
+      MYSQL_HOST: db
     ports:
       - "3307:3306"
     expose:
