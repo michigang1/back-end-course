@@ -29,15 +29,9 @@ jobs:
           path: build/libs
 
       - name: Build and Deploy services to Docker Compose
-        uses: docker/build-push-action@v2
-        with:
-            script: |
-             sudo docker-compose -f $PATH up --build
+        uses: actions/checkout@v3
+        run: docker-compose up --build
 
       - name: Run Docker Compose
-        uses: docker/build-push-action@v2
-        with:
-            script: |
-             sudo docker-compose -f $PATH down
-             sudo docker-compose -f $PATH up
-             sudo docker-compose -f $PATH logs
+        uses: actions/checkout@v3
+        run: docker-compose up
