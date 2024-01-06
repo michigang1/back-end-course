@@ -30,8 +30,14 @@ jobs:
 
       - name: Build and Deploy services to Docker Compose
         uses: docker/build-push-action@v2
-        run: docker-compose up --build
+        with:
+            script: |
+              docker-compose up --build
 
       - name: Run Docker Compose
         uses: docker/build-push-action@v2
-        run: docker-compose up
+        with:
+            script: |
+              docker-compose down
+              docker-compose up
+              docker-compose logs
