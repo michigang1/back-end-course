@@ -4,7 +4,7 @@
 ### [Link to hosted web-server](https://back-end-course-spring-3a0c4dce4f54.herokuapp.com/api/healthcheck) 
 -------
 
-## How to Run the Server localy:
+## How to Run the Server locally:
 
 ### Using IntelliJ IDEA or Another IDE with Gradle and Kotlin Support:
 
