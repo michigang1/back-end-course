@@ -28,6 +28,8 @@ jobs:
           name: Package
           path: build/libs
       - uses: actions/checkout@v3
+      - name: Setup Docker Compose
+        run: brew install docker-compose
       - name: Build and Deploy services to Docker Compose
         run: docker-compose up --build
       - name: Run Docker Compose
