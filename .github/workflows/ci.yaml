@@ -29,9 +29,9 @@ jobs:
           path: build/libs
 
       - name: Build and Deploy services to Docker Compose
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
         run: docker-compose up --build
 
       - name: Run Docker Compose
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
         run: docker-compose up
